@@ -1,0 +1,26 @@
+# FIXME: This should use the minimal example
+# We continue to use the kernel-config-test as CI is currently expecting to see a success message
+kernel:
+  image: "linuxkit/kernel:4.9.x"
+  cmdline: "console=ttyS0"
+init:
+  - linuxkit/init:17693d233dd009b2a3a8d23673cb85969e1dce80
+  - linuxkit/runc:2649198589ef0020d99f613adaeda45ce0093a38
+  - linuxkit/containerd:be69ded7ed4437e2989da850581b631bac877d3e
+onboot:
+  - name: dhcpcd
+    image: "linuxkit/dhcpcd:7d2b8aaaf20c24ad7d11a5ea2ea5b4a80dc966f1"
+    command: ["/sbin/dhcpcd", "--nobackground", "-f", "/dhcpcd.conf", "-1"]
+  - name: check-kernel-config
+    image: "linuxkit/test-kernel-config:2acaa564c1801dd2ae1546c70c472dc58ac030a1"
+    readonly: true
+  - name: poweroff
+    image: "linuxkit/poweroff:7404cf2295df89ccfa2dda41997a28307a90cf28"
+    command: ["/bin/sh", "/poweroff.sh", "3"]
+trust:
+  image:
+    - linuxkit/kernel
+    - linuxkit/init
+    - linuxkit/runc
+    - linuxkit/containerd
+    - linuxkit/dhcpcd

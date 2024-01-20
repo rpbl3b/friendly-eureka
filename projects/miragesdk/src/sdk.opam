@@ -1,0 +1,33 @@
+opam-version: "1.2"
+name:         "sdk"
+version:      "dev"
+maintainer:   "Thomas Gazagnaire <thomas@gazagnaire.org>"
+authors:      "Thomas Gazagnaire <thomas@gazagnaire.org>"
+homepage:     "https://github.com/linuxkit/linuxkit"
+bug-reports:  "https://github.com/linuxkit/linuxkit/issues"
+license:      "Apache"
+dev-repo:     "https://github.com/linuxkit/linuxkit.git"
+build: ["jbuilder" "build" "-p" name "-j" jobs "@install"]
+depends: [
+  "jbuilder"  {build & >= "1.0+beta7"}
+  "ocamlfind" {build}
+  "cstruct"
+  "cstruct-lwt"
+  "lwt"
+  "logs" "astring" "rresult"
+  "mirage-flow-lwt"
+  "mirage-channel-lwt"
+  "io-page"
+  "irmin-git"
+  "decompress"
+  "capnp-rpc-lwt"
+  "rawlink"
+  "tuntap" {= "1.0.0"}
+  "ipaddr"
+  "bos"
+  "mirage-flow-rawlink"
+  "mirage-net-fd"
+  "charrua-client"
+  "mirage-types-lwt"
+  "alcotest" {test}
+]
